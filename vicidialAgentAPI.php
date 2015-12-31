@@ -12,7 +12,11 @@
 *  license: GNU AFFERO GENERAL PUBLIC LICENSE Version 3
 *
 *  VICIdial is a registered trademark of the Vicidial Group which i am not related in anyway.
-*   
+*  
+*  TODO: -Add all the functions available in the AGENT API
+*        -Add validations to all methods
+*	 -Improve inline documentation 
+*
 */
 
 class VicidialAgentAPI {
@@ -35,8 +39,6 @@ class VicidialAgentAPI {
 		if ((filter_var($server_ip, FILTER_VALIDATE_IP) === false) && (filter_var(gethostbyname($server_ip), FILTER_VALIDATE_IP) === false)) {
 
 			throw new Exception('Invalid IP Address or hostname not found');
-                        return false;
-
 		}
 
 		$this->server_ip = $server_ip;
@@ -83,7 +85,6 @@ class VicidialAgentAPI {
 		if($curl_error)
 		{
     			throw new Exception("cURL $curl_error");
-                        return false;
 		}
 
                 curl_close($curl);
@@ -240,7 +241,6 @@ class VicidialAgentAPI {
 		if ( !is_array($fields_to_update)) {
 
 			throw new Exception('Fields must be an array');
-			return false;
 		}
 
 		// according to the API documentation only these fields are allowed to update using this method
@@ -254,7 +254,6 @@ class VicidialAgentAPI {
 			if ( !in_array($key, $permited_fields)) {
 
 				throw new Exception("$key is not a valid field");
-                        	return false;
 			}				
 		}
 
