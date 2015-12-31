@@ -1,6 +1,6 @@
-#Vicidial API PHP WRAPPER
+##Vicidial API PHP WRAPPER
 
-*DISCLAIMER:* **VICIdial is a registered trademark of the Vicidial Group which i am not related in anyway.**
+**DISCLAIMER:** *VICIdial is a registered trademark of the Vicidial Group which i am not related in anyway.*
 
 VICIDIAL is a software suite that is designed to interact with the Asterisk Open-Source PBX Phone system to act as a complete inbound/outbound contact center suite with inbound email support as well. 
 
@@ -11,7 +11,9 @@ Vicidial has an AGENT API and NON AGENT API, this classes are intended to make i
 http://vicidial.org/docs/NON-AGENT_API.txt
 http://vicidial.org/docs/AGENT_API.txt
 
-## How to use it
+### How to use it
+
+#### Example 1: Update fields on agent screen
 
 ```
 require 'vicidialAgentAPI.php';
@@ -21,12 +23,26 @@ $fields['last_name'] = "Doe";
 $fields['address1'] = "123 Fake St";
 
 try {
-        $vicidialAPI = new VicidialAgentAPI("192.168.100.100", "VicidialAPI", "c4tech", "V88Tig1",true);
-        $vicidialAPI->update_fields("c4tech", $fields);
+        $vicidialAPI = new VicidialAgentAPI("127.0.0.1", "VicidialAPI", "gabriel", "Sup3rP4ss",true);
+        $vicidialAPI->update_fields("gabriel", $fields);
 } catch (Exception $e) {
             echo 'Exception: ',  $e->getMessage(), "\n";
 }
 ```
+
+#### Example 2: Hangup Call, Dispo it and Pause Agent
+
+```
+require 'vicidialAgentAPI.php';
+
+try {
+        $vicidialAPI = new VicidialAgentAPI("127.0.0.1", "VicidialAPI", "gabriel", "Sup3rP4ss",true);
+        $vicidialAPI->pause("gabriel", "PAUSE");
+        $vicidialAPI->hangup("gabriel");
+        $vicidialAPI->dispo("gabriel", "SALE");
+} catch (Exception $e) {
+            echo 'Exception: ',  $e->getMessage(), "\n";
+}
 
 
 
