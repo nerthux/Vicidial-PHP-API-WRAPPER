@@ -8,8 +8,8 @@ http://www.vicidial.org/vicidial.php
 
 Vicidial has an AGENT API and NON AGENT API, this classes are intended to make it easier to use in PHP
 
-http://vicidial.org/docs/NON-AGENT_API.txt
-http://vicidial.org/docs/AGENT_API.txt
+* http://vicidial.org/docs/NON-AGENT_API.txt
+* http://vicidial.org/docs/AGENT_API.txt
 
 ### How to use it
 
@@ -45,7 +45,9 @@ try {
 } catch (Exception $e) {
             echo 'Exception: ',  $e->getMessage(), "\n";
 }
+```
 
+###TODO
 
-
+This is a work in progress, still working on finish the Agent API, after that i will add a NON Agent API Class
 
