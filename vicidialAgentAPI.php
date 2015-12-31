@@ -22,17 +22,18 @@ class VicidialAgentAPI {
 	private $api_user;
 	private $api_password;
 	private $base_url;
-
+	private $debug;
 
 	/**
 	 * Initializes the object with the basic information to create the base_url
 	 */
-	public function __construct($server_ip, $source, $api_user, $api_password){
+	public function __construct($server_ip, $source, $api_user, $api_password, $debug = false){
 
 		$this->server_ip = $server_ip;
 		$this->source = $source;
                 $this->api_user = $api_user;
                 $this->api_password = $api_password;
+		$this->debug = $debug;
 		
 		$this->base_url = "http://" . $this->server_ip . "/agc/api.php?";
 
@@ -51,6 +52,9 @@ class VicidialAgentAPI {
 	 */
         private function call_api_url($url)
         {
+
+		if ($this->debug)
+			echo $url . "\n\n";
 
                 $curl = curl_init();
                 curl_setopt_array( $curl, array (
