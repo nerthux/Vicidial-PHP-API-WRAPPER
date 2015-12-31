@@ -202,6 +202,26 @@ class VicidialAgentAPI {
 
                 return $this->call_api_url($url);
         }
+
+        /**
+         * Creates the URL for  the external_dial method and calls 'call_api_url' to execute it
+         *
+         */
+
+        public function update_fields($agent_user, $fields_to_update)
+        {
+                $url_parameters['function'] = "update_fields";
+                $url_parameters['agent_user'] = $agent_user;
+
+                $url_query = http_build_query($url_parameters);
+
+		$url_fields = http_build_query($fields_to_update);
+
+                $url = $this->base_url ."&". $url_query ."&".$url_fields;
+
+                return $this->call_api_url($url);
+        }
+
 }
 
 ?>
