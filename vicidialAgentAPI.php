@@ -132,7 +132,7 @@ class VicidialAgentAPI {
 
 
         /**
-         * Creates the URL for  the external_puse method and calls 'call_api_url' to execute it
+         * Creates the URL for  the external_pause method and calls 'call_api_url' to execute it
          */
         public function pause($agent_user, $status)
         {
@@ -148,6 +148,26 @@ class VicidialAgentAPI {
 
                 return $this->call_api_url($url);
         }
+
+
+        /**
+         * Creates the URL for  the pause_code method and calls 'call_api_url' to execute it
+         */
+        public function pause_code($agent_user, $code)
+        {
+                $url_parameters['agent_user'] = $agent_user;
+                $url_parameters['function'] = "pause_code";
+                $url_parameters['value'] = $code;
+
+
+                $url_query = http_build_query($url_parameters);
+
+                $url = $this->base_url ."&". $url_query;
+
+
+                return $this->call_api_url($url);
+        }
+
 
         /**
          * Creates the URL for the webserver method and calls 'call_api_url' to execute it

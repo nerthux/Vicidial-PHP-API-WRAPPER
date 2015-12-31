@@ -40,6 +40,8 @@ try {
         $vicidialAPI->pause("gabriel", "PAUSE");
         $vicidialAPI->hangup("gabriel");
         $vicidialAPI->dispo("gabriel", "SALE");
+        $vicidialAPI->pause_code("gabriel", "BREAK");
+
 } catch (Exception $e) {
             echo 'Exception: ',  $e->getMessage(), "\n";
 }
