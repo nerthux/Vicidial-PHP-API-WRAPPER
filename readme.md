@@ -8,8 +8,8 @@ http://www.vicidial.org/vicidial.php
 
 Vicidial has an AGENT API and NON AGENT API, this classes are intended to make it easier to use in PHP
 
-*http://vicidial.org/docs/NON-AGENT_API.txt
-*http://vicidial.org/docs/AGENT_API.txt
+* http://vicidial.org/docs/NON-AGENT_API.txt
+* http://vicidial.org/docs/AGENT_API.txt
 
 ### How to use it
 
