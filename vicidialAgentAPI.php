@@ -36,15 +36,15 @@ class VicidialAgentAPI {
 	public function __construct($server_ip, $source, $api_user, $api_password, $debug = false){
 		
 		// Validates if valid IP or resolv hostname WARNING: Not fully tested !!
-		if ((filter_var($server_ip, FILTER_VALIDATE_IP) === false) && (filter_var(gethostbyname($server_ip), FILTER_VALIDATE_IP) === false)) {
+		if (( filter_var($server_ip, FILTER_VALIDATE_IP ) === false) && ( filter_var(gethostbyname($server_ip), FILTER_VALIDATE_IP) === false )) {
 
 			throw new Exception('Invalid IP Address or hostname not found');
 		}
 
-		$this->server_ip = $server_ip;
-		$this->source = $source;
-                $this->api_user = $api_user;
-                $this->api_password = $api_password;
+		$this->server_ip = urlencode($server_ip);
+		$this->source = urlencode($source);
+                $this->api_user = urlencode($api_user);
+                $this->api_password = urlencode($api_password);
 		$this->debug = $debug;
 		
 		$this->base_url = "http://" . $this->server_ip . "/agc/api.php?";
@@ -64,9 +64,13 @@ class VicidialAgentAPI {
 	 */
         private function call_api_url($url)
         {
+		if ( filter_var(urldecode($url), FILTER_VALIDATE_URL, FILTER_FLAG_QUERY_REQUIRED) === false ) 
+        		throw new Exception("URL may contain malicious code: $url");
 
-		if ($this->debug)
+		if ($this->debug) {
 			echo $url . "\n\n";
+			echo urldecode($url) . "\n\n";
+		}
 
                 $curl = curl_init();
                 curl_setopt_array( $curl, array (
@@ -98,7 +102,7 @@ class VicidialAgentAPI {
 	 */
 	public function hangup($agent_user)
 	{
-		$url_parameters['agent_user'] = $agent_user;
+		$url_parameters['agent_user'] = urlencode(trim($agent_user));
                 $url_parameters['function'] = "external_hangup";
                 $url_parameters['value'] = "1";
 
@@ -117,9 +121,9 @@ class VicidialAgentAPI {
          */
         public function dispo($agent_user, $status)
         {
-                $url_parameters['agent_user'] = $agent_user;
+                $url_parameters['agent_user'] = urlencode(trim($agent_user));
                 $url_parameters['function'] = "external_status";
-                $url_parameters['value'] = $status;
+                $url_parameters['value'] = urlencode(trim($status));
 
 
                 $url_query = http_build_query($url_parameters);
@@ -136,9 +140,9 @@ class VicidialAgentAPI {
          */
         public function pause($agent_user, $status)
         {
-                $url_parameters['agent_user'] = $agent_user;
+                $url_parameters['agent_user'] = urlencode(trim($agent_user));
                 $url_parameters['function'] = "external_pause";
-                $url_parameters['value'] = $status;
+                $url_parameters['value'] = urlencode(trim($status));
 
 
                 $url_query = http_build_query($url_parameters);
@@ -155,9 +159,9 @@ class VicidialAgentAPI {
          */
         public function pause_code($agent_user, $code)
         {
-                $url_parameters['agent_user'] = $agent_user;
+                $url_parameters['agent_user'] = urlencode(trim($agent_user));
                 $url_parameters['function'] = "pause_code";
-                $url_parameters['value'] = $code;
+                $url_parameters['value'] = urlencode(trim($code));
 
 
                 $url_query = http_build_query($url_parameters);
@@ -210,7 +214,7 @@ class VicidialAgentAPI {
 
         public function logout($agent_user)
         {
-                $url_parameters['agent_user'] = $agent_user;
+                $url_parameters['agent_user'] = urlencode(trim($agent_user));
                 $url_parameters['function'] = "logout";
                 $url_parameters['value'] = "LOGOUT";
 
@@ -232,10 +236,10 @@ class VicidialAgentAPI {
 
         public function dial($agent_user, $phone_number, $phone_code)
         {
-                $url_parameters['agent_user'] = $agent_user;
+                $url_parameters['agent_user'] = urlencode(trim($agent_user));
                 $url_parameters['function'] = "external_dial";
-                $url_parameters['value'] = $phone_number;
-                $url_parameters['phone_code'] = $phone_code;
+                $url_parameters['value'] = urlencode(trim($phone_number));
+                $url_parameters['phone_code'] = urlencode(trim($phone_code));
                 $url_parameters['search'] = "YES";
 		$url_parameters['preview'] = "NO";
                 $url_parameters['focus'] = "YES";
@@ -278,7 +282,7 @@ class VicidialAgentAPI {
 		}
 
                 $url_parameters['function'] = "update_fields";
-                $url_parameters['agent_user'] = $agent_user;
+                $url_parameters['agent_user'] = urlencode(trim($agent_user));
 
                 $url_query = http_build_query($url_parameters);
 
