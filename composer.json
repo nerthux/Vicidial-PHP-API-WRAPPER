@@ -1,0 +1,13 @@
+{
+    "name": "nerthux/vicidial-php-api-wrapper",
+    "description": "This is a wrapper to use Vicidial's API easily with PHP",
+    "type": "library",
+    "license": "AGPL V2",
+    "authors": [
+        {
+            "name": "Gabriel Covarrubias",
+            "email": "gcovarrubias@c4-technologies.com"
+        }
+    ],
+    "require": {}
+}
